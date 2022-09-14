@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 57989328119426018}
   - component: {fileID: 8913037723889403429}
   - component: {fileID: 6524746637850833847}
-  - component: {fileID: 1166735678}
-  - component: {fileID: 1166735677}
   m_Layer: 0
   m_Name: Forest_Tree_5D
   m_TagString: Untagged
@@ -56,6 +54,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -68,6 +68,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -80,30 +81,4 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1166735678
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166735676}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 4.341549, z: 0.3}
-  m_Center: {x: 0.054359317, y: 2.1707306, z: -0.024012864}
---- !u!136 &1166735677
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166735676}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.45
-  m_Height: 6.721092
-  m_Direction: 1
-  m_Center: {x: 0.054359317, y: 5.808181, z: -0.024012804}
+  m_AdditionalVertexStreams: {fileID: 0}

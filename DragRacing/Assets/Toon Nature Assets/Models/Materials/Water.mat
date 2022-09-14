@@ -48,7 +48,7 @@ Material:
     - _SurfaceNoiseCutoff: 0.76
     m_Colors:
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _DepthGradientDeep: {r: 0.12061229, g: 0.43856475, b: 0.8301887, a: 0.9019608}
+    - _DepthGradientDeep: {r: 0.3120861, g: 0.5492356, b: 0.8396226, a: 1}
     - _DepthGradientShallow: {r: 0.21226418, g: 0.7021973, b: 1, a: 0.32156864}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
