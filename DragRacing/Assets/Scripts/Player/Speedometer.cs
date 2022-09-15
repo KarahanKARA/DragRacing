@@ -1,20 +1,22 @@
+using TMPro;
 using UnityEngine;
 
 namespace Player
 {
     public class Speedometer : MonoBehaviour
     {
-        private RectTransform _arrowPivot;
+        [SerializeField] private TextMeshProUGUI speedText;
+        [SerializeField] private RectTransform arrowPivotTransform;
         private CarController _carController;
         private void Start()
         {
             _carController = GameManager.instance.playerCar.GetComponent<CarController>();
-            _arrowPivot = GetComponent<RectTransform>();
         }
         private void Update()
         {
             var currentSpeed = _carController.GetCurrentSpeed();
-            _arrowPivot.rotation = Quaternion.Euler(180f, 0f,(90*currentSpeed)/130f);
+            arrowPivotTransform.rotation = Quaternion.Euler(180f, 0f,(90*currentSpeed)/130f);
+            speedText.text = currentSpeed.ToString("0")+"\nKM/H";
         }
     }
 }
