@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MenuScene.unity
+    guid: 4c367e319d6c6e14b8f9b7a01c5c3e9a
+  - enabled: 1
     path: Assets/Scenes/DayRace.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Scenes/NightRace.unity
+    guid: defc51021370bae4393827788f89d665
   m_configObjects: {}

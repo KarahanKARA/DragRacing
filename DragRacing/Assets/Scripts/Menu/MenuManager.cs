@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Menu
 {
     public class MenuManager : MonoBehaviour
     {
+        [SerializeField] private DataTransfer dataTransfer;
         [SerializeField] private List<GameObject> cars;
         [SerializeField] private List<GameObject> mapsCards;
         [SerializeField] private List<GameObject> gearCards;
@@ -22,7 +24,6 @@ namespace Menu
         {
             cars.ForEach((x) => _currentActiveCarIndex = x.activeSelf ? cars.IndexOf(x) : _currentActiveCarIndex);
         }
-
         public void ChangeCar(int direction)
         {
             cars[_currentActiveCarIndex].SetActive(false);
@@ -86,7 +87,11 @@ namespace Menu
         {
             if (_currentSelectedGearIndex != -1)
             {
-                // BASLA
+                dataTransfer.carType = _currentActiveCarIndex;
+                dataTransfer.gearType = _currentSelectedGearIndex;
+                DontDestroyOnLoad(dataTransfer.gameObject);
+                SceneManager.LoadScene(_currentSelectedMapIndex+1);
+                
             }
         }
     }

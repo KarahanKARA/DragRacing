@@ -4,14 +4,20 @@ namespace Camera
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] private Transform playerTransform;
         [SerializeField] private float rotationSpeed = 5.0f;
-        
+
         private Vector3 _cameraOffset;
+
+        private Transform _playerTransform;
+        public Transform PlayerTransform
+        {
+            get => _playerTransform;
+            set => _playerTransform = value;
+        }
 
         private void Start()
         {
-            _cameraOffset = transform.position - playerTransform.position;
+            _cameraOffset = transform.position - PlayerTransform.position;
         }
 
         private void LateUpdate()
@@ -22,8 +28,8 @@ namespace Camera
                 _cameraOffset = camTurnAngle * _cameraOffset;
             }
 
-            transform.position = playerTransform.position + _cameraOffset;
-            transform.LookAt(playerTransform);
+            transform.position = PlayerTransform.position + _cameraOffset;
+            transform.LookAt(PlayerTransform);
         }
     }
 }
