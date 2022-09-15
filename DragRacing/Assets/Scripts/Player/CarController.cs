@@ -12,8 +12,9 @@ namespace Player
 
         private float _speed = 0f;
 
+        private float _tempTime = 0f;
+        //-----PROPS-----//
         private int _currentGearTier = 1;
-
         public int CurrentGearTier
         {
             get => _currentGearTier;
@@ -35,32 +36,18 @@ namespace Player
 
         void Update()
         {
+            Inputs();
+            ClampSpeed();
             CurrentRpm = (GetMaxRpm() * _speed) / topSpeed;
             CurrentGearTier = (int)(CurrentRpm / 1000)+1;
-            if (Input.GetKey(KeyCode.W))
-            {
-                _speed += Time.deltaTime * enginePower / 10f;
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                _speed -= Time.deltaTime * enginePower / 5f;
-            }
-            else
-            {
-                _speed -= Time.deltaTime * enginePower / 16f;
-            }
-
-            if (_speed < 0f)
-            {
-                _speed = 0f;
-            }
-
-            if (_speed > topSpeed)
-            {
-                _speed = topSpeed;
-            }
-
             transform.position += new Vector3(0, 0, _speed * Time.deltaTime);
+            
+            if (GameManager.instance.IsPlayerFinished)
+            {
+                _speed -= Time.deltaTime * enginePower;
+                transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0, -45f,0),_tempTime*0.1f);
+                _tempTime += Time.deltaTime;
+            }
         }
 
         public float GetTopSpeed()
@@ -76,6 +63,38 @@ namespace Player
         public float GetMaxRpm()
         {
             return numberOfGears * 1000 + 500;
+        }
+
+        private void Inputs()
+        {
+            if (GameManager.instance.CanPlayerRace)
+            {
+                if (Input.GetKey(KeyCode.W))
+                {
+                    _speed += Time.deltaTime * enginePower / 10f;
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {
+                    _speed -= Time.deltaTime * enginePower / 5f;
+                }
+                else
+                {
+                    _speed -= Time.deltaTime * enginePower / 16f;
+                }
+            }
+        }
+
+        private void ClampSpeed()
+        {
+            if (_speed < 0f)
+            {
+                _speed = 0f;
+            }
+
+            if (_speed > topSpeed)
+            {
+                _speed = topSpeed;
+            }
         }
     }
 }

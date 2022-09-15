@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Attribute
   - DataTransfer
+  - EndPoint
   layers:
   - Default
   - TransparentFX
