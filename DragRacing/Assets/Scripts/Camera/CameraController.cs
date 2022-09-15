@@ -17,7 +17,12 @@ namespace Camera
 
         private void Start()
         {
+            if (PlayerTransform == null)
+            {
+                PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            }
             _cameraOffset = transform.position - PlayerTransform.position;
+            
         }
 
         private void LateUpdate()

@@ -618,9 +618,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dafaae7e129aaa34cb94830c65248a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topSpeed: 400
+  topSpeed: 120
   numberOfGears: 5
-  motorPower: 90
+  enginePower: 70
 --- !u!1 &9061346698380113332
 GameObject:
   m_ObjectHideFlags: 0

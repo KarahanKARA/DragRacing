@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public GameObject playerCar;
     public CameraController cameraController;
     [SerializeField] private List<GameObject> carPrefabs;
     
@@ -46,11 +47,13 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        var tempDataTransferScript = GameObject.FindGameObjectWithTag("DataTransfer").GetComponent<DataTransfer>();
-        SelectedCarIndex = tempDataTransferScript.carType;
-        SelectedGearType = tempDataTransferScript.gearType;
-        
-        var createdCarPrefab = Instantiate(carPrefabs[SelectedCarIndex], new Vector3(0,24,-173), Quaternion.identity);
-        cameraController.PlayerTransform = createdCarPrefab.transform;
+        // var tempDataTransferScript = GameObject.FindGameObjectWithTag("DataTransfer").GetComponent<DataTransfer>();
+        // SelectedCarIndex = tempDataTransferScript.carType;
+        // SelectedGearType = tempDataTransferScript.gearType;
+        //
+        // var createdCarPrefab = Instantiate(carPrefabs[SelectedCarIndex], new Vector3(0,24,-174), Quaternion.identity);
+        // cameraController.PlayerTransform = createdCarPrefab.transform;
+        //playerCar = createdCarPrefab;
+        playerCar = GameObject.FindGameObjectWithTag("Player");
     }
 }
