@@ -19,7 +19,7 @@ namespace Player
         private void Update()
         {
             rpmText.text = _carController.CurrentRpm.ToString("0") + "\nRPM";
-            gearText.text = _carController.CurrentGearTier + "\nGEAR";
+            gearText.text = _carController.CurrentGearTier.ToString();
             var scale = _carController.CurrentRpm % 1000;
             var tempRadius = ((scale * 245) / 1000) - 35;
             arrowPivotTransform.rotation = Quaternion.Euler(180f, 0f, tempRadius);

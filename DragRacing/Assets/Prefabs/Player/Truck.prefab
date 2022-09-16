@@ -983,7 +983,7 @@ MonoBehaviour:
   carStopLight: {fileID: 5567959201073741011}
   wheelSmoke: {fileID: 149657027}
   exhaustFumes: {fileID: 692982764}
-  topSpeed: 120
+  topSpeed: 140
   numberOfGears: 5
   enginePower: 70
 --- !u!114 &1761948718
@@ -1236,7 +1236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19878614, guid: 85d3916633997dd469d512cae33e8793, type: 3}
       propertyPath: looping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19878614, guid: 85d3916633997dd469d512cae33e8793, type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState

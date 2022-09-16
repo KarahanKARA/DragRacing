@@ -22,7 +22,13 @@ namespace Player
         public int CurrentGearTier
         {
             get => _currentGearTier;
-            set => _currentGearTier = value;
+            set
+            {
+                if (value > 0 && value <= numberOfGears)
+                {
+                    _currentGearTier = value;
+                }
+            }
         }
 
         private float _currentRpm;
@@ -45,7 +51,11 @@ namespace Player
             Inputs();
             ClampSpeed();
             CurrentRpm = (GetMaxRpm() * _speed) / topSpeed;
-            CurrentGearTier = (int)(CurrentRpm / 1000) + 1;
+            if (GameManager.instance.SelectedGearType == 0)
+            {
+                CurrentGearTier = (int)(CurrentRpm / 1000) + 1;
+            }
+
             transform.position += new Vector3(0, 0, _speed * Time.deltaTime / 2);
 
             if (GameManager.instance.IsPlayerFinished)
@@ -65,12 +75,6 @@ namespace Player
                 wheelSmoke.SetActive(false);
             }
         }
-
-        public float GetTopSpeed()
-        {
-            return topSpeed;
-        }
-
         public float GetCurrentSpeed()
         {
             return _speed;
@@ -78,7 +82,7 @@ namespace Player
 
         public float GetMaxRpm()
         {
-            return (numberOfGears - 2) * 1000 + 999;
+            return (numberOfGears - 1) * 1000 + 999;
         }
 
         private void Inputs()
@@ -87,7 +91,33 @@ namespace Player
             {
                 if (Input.GetKey(KeyCode.W))
                 {
-                    _speed += Time.deltaTime * enginePower / 7f;
+                    if (GameManager.instance.SelectedGearType == 1)
+                    {
+                        float gearRange = topSpeed / numberOfGears;
+                        int gearToBe = (int)(_speed / gearRange) + 1;
+                        int difference = Mathf.Abs(CurrentGearTier - gearToBe);
+                        if (CurrentGearTier > gearToBe)
+                        {
+                            _speed += Time.deltaTime * enginePower / (16f * difference);
+                            exhaustFumes.SetActive(true);
+                        }
+                        else if (CurrentGearTier == gearToBe)
+                        {
+                            _speed += Time.deltaTime * enginePower / 7f;
+                            exhaustFumes.SetActive(false);
+                        }
+                        else if (CurrentGearTier < gearToBe)
+                        {
+                            _speed += Time.deltaTime * enginePower / (20f * difference);
+                            exhaustFumes.SetActive(true);
+                        }
+                    }
+                    else
+                    {
+                        exhaustFumes.SetActive(false);
+                        _speed += Time.deltaTime * enginePower / 7f;
+                    }
+
                     if (_speed <= 30f)
                     {
                         wheelSmoke.SetActive(true);
@@ -110,6 +140,18 @@ namespace Player
                     _speed -= Time.deltaTime * enginePower / 16f;
                     carStopLight.SetActive(false);
                     wheelSmoke.SetActive(false);
+                }
+
+                if (GameManager.instance.SelectedGearType == 1)
+                {
+                    if (Input.GetKeyDown(KeyCode.U))
+                    {
+                        CurrentGearTier += 1;
+                    }
+                    else if (Input.GetKeyDown(KeyCode.J))
+                    {
+                        CurrentGearTier -= 1;
+                    }
                 }
             }
         }
