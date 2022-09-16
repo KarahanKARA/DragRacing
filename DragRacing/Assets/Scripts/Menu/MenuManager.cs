@@ -91,7 +91,6 @@ namespace Menu
                 dataTransfer.gearType = _currentSelectedGearIndex;
                 DontDestroyOnLoad(dataTransfer.gameObject);
                 SceneManager.LoadScene(_currentSelectedMapIndex+1);
-                
             }
         }
     }

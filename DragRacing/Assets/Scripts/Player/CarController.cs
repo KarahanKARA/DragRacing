@@ -9,10 +9,10 @@ namespace Player
 
         [Space(20)] [Header("Acceleration is directly proportional to engine power.")] [Range(70, 150)] [SerializeField]
         private int enginePower;
-
+        
         private float _speed = 0f;
-
         private float _tempTime = 0f;
+        
         //-----PROPS-----//
         private int _currentGearTier = 1;
         public int CurrentGearTier
@@ -44,7 +44,14 @@ namespace Player
             
             if (GameManager.instance.IsPlayerFinished)
             {
-                _speed -= Time.deltaTime * enginePower;
+                if (_speed>0f)
+                {
+                    _speed -= Time.deltaTime * enginePower;
+                }
+                else
+                {
+                    _speed = 0f;
+                }
                 transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0, -45f,0),_tempTime*0.1f);
                 _tempTime += Time.deltaTime;
             }
@@ -71,7 +78,7 @@ namespace Player
             {
                 if (Input.GetKey(KeyCode.W))
                 {
-                    _speed += Time.deltaTime * enginePower / 10f;
+                    _speed += Time.deltaTime * enginePower / 7f;
                 }
                 else if (Input.GetKey(KeyCode.S))
                 {

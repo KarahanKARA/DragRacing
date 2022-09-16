@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> carPrefabs;
     [SerializeField] private TextMeshProUGUI countDownText;
     [SerializeField] private TextMeshProUGUI raceTimeText;
+    [SerializeField] private GameObject endgamePanel;
 
     private GameObject _endPointObj;
     private float _raceTime = 0;
@@ -125,5 +127,24 @@ public class GameManager : MonoBehaviour
         CanPlayerRace = false;
         CanCalculateRaceTime = false;
         raceTimeText.GetComponent<HeartBeatEffectUI>().enabled = true;
+        StartCoroutine(ShowEndgamePanel());
+    }
+
+    private IEnumerator ShowEndgamePanel()
+    {
+        yield return new WaitForSeconds(3f);
+        endgamePanel.SetActive(true);
+    }
+
+    public void EndgameButtonsClicked(int i)
+    {
+        if (i == 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        else if (i == 1)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }
