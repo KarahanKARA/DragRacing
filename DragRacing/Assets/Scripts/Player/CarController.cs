@@ -40,7 +40,7 @@ namespace Player
             ClampSpeed();
             CurrentRpm = (GetMaxRpm() * _speed) / topSpeed;
             CurrentGearTier = (int)(CurrentRpm / 1000)+1;
-            transform.position += new Vector3(0, 0, _speed * Time.deltaTime);
+            transform.position += new Vector3(0, 0, _speed * Time.deltaTime/2);
             
             if (GameManager.instance.IsPlayerFinished)
             {
@@ -69,7 +69,7 @@ namespace Player
 
         public float GetMaxRpm()
         {
-            return numberOfGears * 1000 + 500;
+            return (numberOfGears-2) * 1000 + 999;
         }
 
         private void Inputs()
