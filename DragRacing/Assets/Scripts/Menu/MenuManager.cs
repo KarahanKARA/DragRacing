@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace Menu
         {
             cars.ForEach((x) => _currentActiveCarIndex = x.activeSelf ? cars.IndexOf(x) : _currentActiveCarIndex);
         }
+
         public void ChangeCar(int direction)
         {
             cars[_currentActiveCarIndex].SetActive(false);

@@ -26,11 +26,9 @@ public class AudioManager : MonoBehaviour
     {
         var currentRpm = _carController.CurrentRpm;
         _audioSource.pitch = ((currentRpm/_maxRpm)*1.6f)+0.4f;
-
         if (!_audioSource.isPlaying)
         {
             _audioSource.Play();
         }
-
     }
 }

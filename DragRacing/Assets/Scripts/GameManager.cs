@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Camera;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject playerCar;
+    public CameraController cameraController;
     [SerializeField] private List<GameObject> carPrefabs;
     [SerializeField] private TextMeshProUGUI countDownText;
     [SerializeField] private TextMeshProUGUI raceTimeText;
@@ -17,9 +19,10 @@ public class GameManager : MonoBehaviour
     private GameObject _endPointObj;
     private float _raceTime = 0;
 
-    
+
     //---- PROPS ----//
     private bool _isPlayerFinished;
+
     public bool IsPlayerFinished
     {
         get => _isPlayerFinished;
@@ -27,6 +30,7 @@ public class GameManager : MonoBehaviour
     }
 
     private bool _canCalculateRaceTime;
+
     public bool CanCalculateRaceTime
     {
         get => _canCalculateRaceTime;
@@ -34,6 +38,7 @@ public class GameManager : MonoBehaviour
     }
 
     private bool _canPlayerRace;
+
     public bool CanPlayerRace
     {
         get => _canPlayerRace;
@@ -41,12 +46,13 @@ public class GameManager : MonoBehaviour
     }
 
     private int _selectedGearType;
+
     public int SelectedGearType
     {
         get => _selectedGearType;
         set
         {
-            if (value < 0 || value>1)
+            if (value < 0 || value > 1)
             {
                 _selectedGearType = 0;
             }
@@ -58,12 +64,13 @@ public class GameManager : MonoBehaviour
     }
 
     private int _selectedCarIndex;
+
     public int SelectedCarIndex
     {
         get => _selectedCarIndex;
         set
         {
-            if (value < 0 || value>1)
+            if (value < 0 || value > 1)
             {
                 _selectedCarIndex = 0;
             }
@@ -79,13 +86,13 @@ public class GameManager : MonoBehaviour
         instance = this;
         CanPlayerRace = false;
         CanCalculateRaceTime = false;
-        // var tempDataTransferScript = GameObject.FindGameObjectWithTag("DataTransfer").GetComponent<DataTransfer>();
-        // SelectedCarIndex = tempDataTransferScript.carType;
-        // SelectedGearType = tempDataTransferScript.gearType;
-        //
-        // var createdCarPrefab = Instantiate(carPrefabs[SelectedCarIndex], new Vector3(0,24,-174), Quaternion.identity);
-        // cameraController.PlayerTransform = createdCarPrefab.transform;
-        //playerCar = createdCarPrefab;
+        var tempDataTransferScript = GameObject.FindGameObjectWithTag("DataTransfer").GetComponent<DataTransfer>();
+        SelectedCarIndex = tempDataTransferScript.carType;
+        SelectedGearType = tempDataTransferScript.gearType;
+
+        var createdCarPrefab = Instantiate(carPrefabs[SelectedCarIndex], new Vector3(0, 24, -174), Quaternion.identity);
+        cameraController.PlayerTransform = createdCarPrefab.transform;
+        playerCar = createdCarPrefab;
         StartCoroutine(CountDown());
         _endPointObj = GameObject.FindGameObjectWithTag("EndPoint");
         playerCar = GameObject.FindGameObjectWithTag("Player");
@@ -96,7 +103,7 @@ public class GameManager : MonoBehaviour
         if (CanCalculateRaceTime)
         {
             _raceTime += Time.deltaTime;
-            raceTimeText.text = "TIME: "+_raceTime.ToString("0.00");
+            raceTimeText.text = "TIME: " + _raceTime.ToString("0.00");
             if (playerCar.transform.position.z >= _endPointObj.transform.position.z)
             {
                 RaceCompleted();
@@ -107,12 +114,13 @@ public class GameManager : MonoBehaviour
     private IEnumerator CountDown()
     {
         int count = 5;
-        while (count>0)
+        while (count > 0)
         {
             countDownText.text = count.ToString();
             yield return new WaitForSeconds(1f);
             count--;
         }
+
         countDownText.text = "GO!";
         CanCalculateRaceTime = true;
         CanPlayerRace = true;
@@ -144,6 +152,11 @@ public class GameManager : MonoBehaviour
         }
         else if (i == 1)
         {
+            var dataTransferObj = GameObject.FindGameObjectWithTag("DataTransfer");
+            if (dataTransferObj!=null)
+            {
+                Destroy(dataTransferObj);
+            }
             SceneManager.LoadScene(0);
         }
     }
