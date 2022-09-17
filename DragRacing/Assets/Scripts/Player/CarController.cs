@@ -7,16 +7,15 @@ namespace Player
         [SerializeField] private GameObject carStopLight;
         [SerializeField] private GameObject wheelSmoke;
         [SerializeField] private GameObject exhaustFumes;
+        [SerializeField] private GameObject carHeadlight;
         [SerializeField] private float topSpeed;
         [SerializeField] private int numberOfGears;
-
         [Space(20)] [Header("Acceleration is directly proportional to engine power.")] [Range(70, 150)] [SerializeField]
         private int enginePower;
 
         private float _speed = 0f;
         private float _tempTime = 0f;
 
-        //-----PROPS-----//
         private int _currentGearTier = 1;
 
         public int CurrentGearTier
@@ -44,6 +43,10 @@ namespace Player
             CurrentRpm = 0;
             carStopLight.SetActive(false);
             exhaustFumes.SetActive(true);
+            if (GameManager.instance.SelectedMapType==1)
+            {
+                carHeadlight.SetActive(true);
+            }
         }
 
         void Update()
@@ -131,7 +134,7 @@ namespace Player
                 }
                 else if (Input.GetKey(KeyCode.S))
                 {
-                    _speed -= Time.deltaTime * enginePower / 5f;
+                    _speed -= Time.deltaTime * enginePower / 3f;
                     carStopLight.SetActive(true);
                     wheelSmoke.SetActive(false);
                 }

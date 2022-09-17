@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: a1748e9678147144ca8b4f314ff90f9a, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -4214,6 +4214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gearType: 0
   carType: 0
+  mapType: 0
 --- !u!1001 &879404542
 PrefabInstance:
   m_ObjectHideFlags: 0

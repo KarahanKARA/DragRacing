@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     private float _raceTime = 0;
 
 
-    //---- PROPS ----//
     private bool _isPlayerFinished;
 
     public bool IsPlayerFinished
@@ -45,6 +44,23 @@ public class GameManager : MonoBehaviour
         set => _canPlayerRace = value;
     }
 
+    private int _selectedMapType;
+    public int SelectedMapType
+    {
+        get => _selectedMapType;
+        set
+        {
+            if (value < 0 || value > 1)
+            {
+                _selectedMapType = 0;
+            }
+            else
+            {
+                _selectedMapType = value;
+            }
+        }
+    }
+    
     private int _selectedGearType;
 
     public int SelectedGearType
@@ -68,18 +84,9 @@ public class GameManager : MonoBehaviour
     public int SelectedCarIndex
     {
         get => _selectedCarIndex;
-        set
-        {
-            if (value < 0 || value > 1)
-            {
-                _selectedCarIndex = 0;
-            }
-            else
-            {
-                _selectedCarIndex = value;
-            }
-        }
+        set => _selectedCarIndex = value;
     }
+
 
     private void Awake()
     {
@@ -89,6 +96,7 @@ public class GameManager : MonoBehaviour
         var tempDataTransferScript = GameObject.FindGameObjectWithTag("DataTransfer").GetComponent<DataTransfer>();
         SelectedCarIndex = tempDataTransferScript.carType;
         SelectedGearType = tempDataTransferScript.gearType;
+        SelectedMapType = tempDataTransferScript.mapType;
 
         var createdCarPrefab = Instantiate(carPrefabs[SelectedCarIndex], new Vector3(0, 24, -174), Quaternion.identity);
         cameraController.PlayerTransform = createdCarPrefab.transform;

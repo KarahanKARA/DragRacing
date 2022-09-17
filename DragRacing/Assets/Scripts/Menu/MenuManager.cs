@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -91,6 +90,7 @@ namespace Menu
             {
                 dataTransfer.carType = _currentActiveCarIndex;
                 dataTransfer.gearType = _currentSelectedGearIndex;
+                dataTransfer.mapType = _currentSelectedMapIndex;
                 DontDestroyOnLoad(dataTransfer.gameObject);
                 SceneManager.LoadScene(_currentSelectedMapIndex+1);
             }
