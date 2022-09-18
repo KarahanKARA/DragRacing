@@ -96,20 +96,18 @@ namespace Player
                 {
                     if (GameManager.instance.SelectedGearType == 1)
                     {
-                        float gearRange = topSpeed / numberOfGears;
-                        int gearToBe = (int)(_speed / gearRange) + 1;
-                        int difference = Mathf.Abs(CurrentGearTier - gearToBe);
-                        if (CurrentGearTier > gearToBe)
+                        int difference = Mathf.Abs(CurrentGearTier - GetGearMustBe());
+                        if (CurrentGearTier > GetGearMustBe())
                         {
                             _speed += Time.deltaTime * enginePower / (16f * difference);
                             exhaustFumes.SetActive(true);
                         }
-                        else if (CurrentGearTier == gearToBe)
+                        else if (CurrentGearTier == GetGearMustBe())
                         {
                             _speed += Time.deltaTime * enginePower / 7f;
                             exhaustFumes.SetActive(false);
                         }
-                        else if (CurrentGearTier < gearToBe)
+                        else if (CurrentGearTier < GetGearMustBe())
                         {
                             _speed += Time.deltaTime * enginePower / (20f * difference);
                             exhaustFumes.SetActive(true);
@@ -159,6 +157,12 @@ namespace Player
             }
         }
 
+        public int GetGearMustBe()
+        {
+            float gearRange = topSpeed / numberOfGears;
+            int gearMustBe = (int)(_speed / gearRange) + 1;
+            return gearMustBe;
+        }
         private void ClampSpeed()
         {
             if (_speed < 0f)
@@ -170,6 +174,11 @@ namespace Player
             {
                 _speed = topSpeed;
             }
+        }
+
+        public int GetNumberOfGears()
+        {
+            return numberOfGears;
         }
     }
 }
